@@ -8,7 +8,7 @@ jupytext:
     format_version: 0.13
     jupytext_version: 1.11.5
 kernelspec:
-  display_name: Python 3
+  display_name: Python 3 (ipykernel)
   language: python
   name: python3
 ---
@@ -30,22 +30,30 @@ doing some quality control.  We'll be focussing on the YVR airport station.
 * Write a function so
 
 ```{code-cell} ipython3
+:trusted: true
+
 from pathlib import Path
 
 import pandas as pd
 ```
 
 ```{code-cell} ipython3
+:trusted: true
+
 import context
 ```
 
 ```{code-cell} ipython3
+:trusted: false
+
 
 ```
 
 ## Test Calcs (Single Year)
 
 ```{code-cell} ipython3
+:trusted: true
+
 station = "YVR"
 stn_id = 51442
 year = 2013
@@ -53,7 +61,9 @@ datafile = context.raw_dir / Path(f"weather_daily_{station}_{stn_id}_{year}.csv"
 ```
 
 ```{code-cell} ipython3
-df_in = pd.read_csv(datafile, skiprows=24, index_col=0, parse_dates=True)
+:trusted: true
+
+df_in = pd.read_csv(datafile, skiprows=0, index_col=0, parse_dates=True)
 df_in.head()
 ```
 
@@ -64,6 +74,8 @@ To make sure these rows don't mess things up for concatenation later, we will si
 Note that we are specifying the 'Data Quality' column by its name, not its column number
 
 ```{code-cell} ipython3
+:trusted: true
+
 # Create a series which is True for any row that has at least one non-null measurement
 # and False otherwise
 
@@ -72,6 +84,8 @@ not_null.head()
 ```
 
 ```{code-cell} ipython3
+:trusted: true
+
 # Extract the subset of df_in where the not_null Series is True
 data = df_in[not_null]
 data.head()
@@ -80,12 +94,16 @@ data.head()
 To make life easier, let's also remove the degree symbol from the column names, using the string method `replace` and a [list comprehension](https://jakevdp.github.io/WhirlwindTourOfPython/11-list-comprehensions.html)
 
 ```{code-cell} ipython3
+:trusted: true
+
 # Create list of column names with degree symbols removed
 columns = [nm.replace("\xb0", "") for nm in data.columns]
 columns
 ```
 
 ```{code-cell} ipython3
+:trusted: true
+
 # Update the column names in the DataFrame
 data.columns = columns
 data.head()
@@ -96,9 +114,11 @@ data.head()
 Let's consolidate the above code into a function and then use it to process each year and concatenate the years into a single DataFrame.
 
 ```{code-cell} ipython3
+:trusted: true
+
 def process_data(datafile, skiprows=24):
     """Process data for a single year."""
-    df_in = pd.read_csv(datafile, skiprows=24, index_col=0, parse_dates=True)
+    df_in = pd.read_csv(datafile, skiprows=0, index_col=0, parse_dates=True)
 
     # Create a series which is True for any row that has at least one
     # non-null measurement and False otherwise
@@ -117,6 +137,8 @@ def process_data(datafile, skiprows=24):
 ```
 
 ```{code-cell} ipython3
+:trusted: true
+
 # Test the function on the data file from above
 test = process_data(datafile)
 test.head()
@@ -127,6 +149,8 @@ test.head()
 - Then, concatenate the data from recent years
 
 ```{code-cell} ipython3
+:trusted: true
+
 # Initialize an empty DataFrame
 data_all = pd.DataFrame()
 
@@ -149,18 +173,26 @@ for stn, years_list in zip([stn_id_early, stn_id_recent], [years_early, years_re
 ```
 
 ```{code-cell} ipython3
+:trusted: true
+
 data_all.head(2)
 ```
 
 ```{code-cell} ipython3
+:trusted: true
+
 data_all.tail(2)
 ```
 
 ```{code-cell} ipython3
+:trusted: true
+
 data_all.shape
 ```
 
 ```{code-cell} ipython3
+:trusted: true
+
 # Save the full set of concatenated data to file
 year_min, year_max = data_all["Year"].min(), data_all["Year"].max()
 savefile = (context.processed_dir 
@@ -174,6 +206,8 @@ data_all.to_csv(savefile)
 For demos we'll use a subset of the data columns and rename some of them for convenience.
 
 ```{code-cell} ipython3
+:trusted: true
+
 # Extract subset with columns of interest and rename some columns
 
 columns = [
@@ -201,11 +235,15 @@ data_subset.head()
 ```
 
 ```{code-cell} ipython3
+:trusted: true
+
 savefile2 = context.processed_dir / Path(f"weather_{station}.csv")
 print(f"Saving to {savefile2}")
 data_subset.to_csv(savefile2)
 ```
 
 ```{code-cell} ipython3
+:trusted: false
+
 
 ```

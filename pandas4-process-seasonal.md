@@ -8,42 +8,10 @@ jupytext:
     format_version: 0.13
     jupytext_version: 1.11.5
 kernelspec:
-  display_name: Python 3
+  display_name: Python 3 (ipykernel)
   language: python
   name: python3
-latex_envs:
-  LaTeX_envs_menu_present: true
-  autoclose: false
-  autocomplete: true
-  bibliofile: biblio.bib
-  cite_by: apalike
-  current_citInitial: 1
-  eqLabelWithNumbers: true
-  eqNumInitial: 1
-  hotkeys:
-    equation: meta-9
-  labels_anchors: false
-  latex_user_defs: false
-  report_style_numbering: false
-  user_envs_cfg: false
-toc:
-  base_numbering: 1
-  nav_menu: {}
-  number_sections: true
-  sideBar: true
-  skip_h1_title: true
-  title_cell: Table of Contents
-  title_sidebar: Contents
-  toc_cell: true
-  toc_position: {}
-  toc_section_display: true
-  toc_window_display: true
 ---
-
-+++ {"lines_to_next_cell": 0, "toc": true}
-
-<h1>Table of Contents<span class="tocSkip"></span></h1>
-<div class="toc"><ul class="toc-item"><li><span><a href="#Learning-objectives" data-toc-modified-id="Learning-objectives-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Learning objectives</a></span></li><li><span><a href="#Introduction" data-toc-modified-id="Introduction-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Introduction</a></span></li><li><span><a href="#The-context-module-(repeated-from-10-pandas1)" data-toc-modified-id="The-context-module-(repeated-from-10-pandas1)-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>The context module (repeated from 10-pandas1)</a></span></li><li><span><a href="#Reading-the-processed-data" data-toc-modified-id="Reading-the-processed-data-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>Reading the processed data</a></span></li><li><span><a href="#Metadata-is-data-about-data" data-toc-modified-id="Metadata-is-data-about-data-5"><span class="toc-item-num">5&nbsp;&nbsp;</span>Metadata is data about data</a></span></li><li><span><a href="#Read-weather_YVR.csv-into-a-dataframe" data-toc-modified-id="Read-weather_YVR.csv-into-a-dataframe-6"><span class="toc-item-num">6&nbsp;&nbsp;</span>Read weather_YVR.csv into a dataframe</a></span></li><li><span><a href="#Use-apply-to-tag-the-29,190-days-with-their-season" data-toc-modified-id="Use-apply-to-tag-the-29,190-days-with-their-season-7"><span class="toc-item-num">7&nbsp;&nbsp;</span>Use apply to tag the 29,190 days with their season</a></span><ul class="toc-item"><li><span><a href="#creating-a-new-column-with-apply" data-toc-modified-id="creating-a-new-column-with-apply-7.1"><span class="toc-item-num">7.1&nbsp;&nbsp;</span>creating a new column with apply</a></span></li></ul></li><li><span><a href="#Grouping-the-data-by-season" data-toc-modified-id="Grouping-the-data-by-season-8"><span class="toc-item-num">8&nbsp;&nbsp;</span>Grouping the data by season</a></span><ul class="toc-item"><li><span><a href="#Use-a-dictionary-comprehension-put-the-dataframes-into-a-dictionary" data-toc-modified-id="Use-a-dictionary-comprehension-put-the-dataframes-into-a-dictionary-8.1"><span class="toc-item-num">8.1&nbsp;&nbsp;</span>Use a dictionary comprehension put the dataframes into a dictionary</a></span></li></ul></li><li><span><a href="#Fitting-the-distributions" data-toc-modified-id="Fitting-the-distributions-9"><span class="toc-item-num">9&nbsp;&nbsp;</span>Fitting the distributions</a></span><ul class="toc-item"><li><span><a href="#Daily-average-temperature" data-toc-modified-id="Daily-average-temperature-9.1"><span class="toc-item-num">9.1&nbsp;&nbsp;</span>Daily average temperature</a></span></li><li><span><a href="#Daily-average-total-precipitation" data-toc-modified-id="Daily-average-total-precipitation-9.2"><span class="toc-item-num">9.2&nbsp;&nbsp;</span>Daily average total precipitation</a></span></li></ul></li><li><span><a href="#Saving-the-fit-parameters" data-toc-modified-id="Saving-the-fit-parameters-10"><span class="toc-item-num">10&nbsp;&nbsp;</span>Saving the fit parameters</a></span></li></ul></div>
 
 +++ {"lines_to_next_cell": 0}
 
@@ -103,6 +71,8 @@ new python modules/methods:
    - [scipy.stats.expon.fit](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.expon.html#scipy.stats.expon)
 
 ```{code-cell} ipython3
+:trusted: true
+
 import json
 
 import context
@@ -137,6 +107,8 @@ you do `import context` and does the following:
    code from notebooks into libraries
 
 ```{code-cell} ipython3
+:trusted: true
+
 #
 # Here is the path to the processed csv file
 #
@@ -150,11 +122,15 @@ find every csv file in all folders below `data/processed`.  (See
 [this optional tutorial](https://realpython.com/python-pathlib/) for more information).
 
 ```{code-cell} ipython3
+:trusted: true
+
 yvr_files = list(context.processed_dir.glob("**/*YVR*csv"))
 print(f"yvr files: \n{pprint.pformat(yvr_files)}")
 ```
 
 ```{code-cell} ipython3
+:trusted: true
+
 yvr_file = context.processed_dir / "weather_YVR.csv"
 ```
 
@@ -169,6 +145,8 @@ write the data into a nested dictionary called meta_dict, and
 dump that information into a new json file called metadata.json
 
 ```{code-cell} ipython3
+:trusted: true
+
 meta_data = dict()
 
 file_info = dict()
@@ -203,6 +181,8 @@ Take a minute and look at history_metadata.json with jupyter to see how the meta
 Here's the dataframe produced by 10-pandas3
 
 ```{code-cell} ipython3
+:trusted: true
+
 yvr_df = pd.read_csv(yvr_file)
 yvr_df.fillna(0.0, inplace=True)
 print(f"there are {len(yvr_df)} days in the dataframe")
@@ -219,6 +199,8 @@ a function called find_season that takes a row of the dataframe and
 returns the season for that row
 
 ```{code-cell} ipython3
+:trusted: true
+
 season_table = dict()
 for i in range(12):
     m = i + 1
@@ -248,12 +230,16 @@ cell below.  `axis=1` tells apply that we want to produce a new column
 (axis 1), not a new row (axis 0).
 
 ```{code-cell} ipython3
+:trusted: true
+
 season = yvr_df.apply(find_season, args=(season_table,), axis=1)
 ```
 
 Now add that column to the dataframe
 
 ```{code-cell} ipython3
+:trusted: true
+
 yvr_df["season"] = season
 yvr_df.head()
 ```
@@ -265,6 +251,8 @@ rows into 4 seasons.  The resulting group object (`seasons`) has
 4 dataframes inside it, keyed by the season marker djf, mam, etc.
 
 ```{code-cell} ipython3
+:trusted: true
+
 seasons = yvr_df.groupby("season")
 #dir(seasons)
 ```
@@ -276,6 +264,8 @@ one again below -- it will have 4 keys, one for each season, with each
 key pointing to the seasonal dataframe.
 
 ```{code-cell} ipython3
+:trusted: true
+
 season_dict = {key: value for key, value in seasons}
 season_dict.keys()
 ```
@@ -283,6 +273,8 @@ season_dict.keys()
 Here is the fall dataframe
 
 ```{code-cell} ipython3
+:trusted: true
+
 season_dict["son"].head()
 ```
 
@@ -304,6 +296,8 @@ y &= (x - loc) / scale
 The four plots show that a normal distribution give as pretty good representation of each of the seasons.
 
 ```{code-cell} ipython3
+:trusted: true
+
 key_list = ["djf", "mam", "jja", "son"]
 df_list = [season_dict[key] for key in key_list]
 fig, ax_array = plt.subplots(2, 2, figsize=(8, 8))
@@ -345,6 +339,8 @@ The fits are not quite as good -- but do capture the one-sided nature
 of the variability.
 
 ```{code-cell} ipython3
+:trusted: true
+
 fig, ax_array = plt.subplots(2, 2, figsize=(8, 8))
 ax_list = ax_array.flatten()
 var = "Total Precip (mm)"
@@ -370,6 +366,8 @@ We have two new dictionaries: `temp_params` and `precip_params` that
 we should save for the future.
 
 ```{code-cell} ipython3
+:trusted: true
+
 data_dict = dict()
 data_dict[
     "metadata"
@@ -385,6 +383,8 @@ with open(fit_file, "w") as f:
 ```
 
 ```{code-cell} ipython3
+:trusted: true
+
 def find_decade(row):
     """
     given a row from an Environment Canada dataframe
@@ -437,6 +437,8 @@ for season_key,season_df in season_dict.items():
 ```
 
 ```{code-cell} ipython3
+:trusted: true
+
 fig, ax_array = plt.subplots(2, 2, figsize=(8, 8))
 ax_list = ax_array.flatten()
 for index,key in enumerate(key_list):

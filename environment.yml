@@ -1,0 +1,21 @@
+name: mainsite
+channels:
+  - eoas_ubc
+  - conda-forge
+  - defaults
+dependencies:
+  - git
+  - python=3.8
+  - pip
+  - nbgitpuller>1.0
+  - ghp-import
+  - conda-lock
+  - jupyterlab
+  - jupyterhub=1.4
+  - mamba
+  - scipy
+  - matplotlib
+  - numpy
+  - pandas
+  - bottleneck
+# conda-lock --file environment.yml -p linux-64

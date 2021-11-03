@@ -8,15 +8,10 @@ jupytext:
     format_version: 0.13
     jupytext_version: 1.11.5
 kernelspec:
-  display_name: Python 3
+  display_name: Python 3 (ipykernel)
   language: python
   name: python3
 ---
-
-+++ {"lines_to_next_cell": 0, "toc": true}
-
-<h1>Table of Contents<span class="tocSkip"></span></h1>
-<div class="toc"><ul class="toc-item"><li><span><a href="#Download-Environment-Canada-Daily-Data" data-toc-modified-id="Download-Environment-Canada-Daily-Data-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Download Environment Canada Daily Data</a></span><ul class="toc-item"><li><span><a href="#Set-the-context-for-this-notebook" data-toc-modified-id="Set-the-context-for-this-notebook-1.1"><span class="toc-item-num">1.1&nbsp;&nbsp;</span>Set the context for this notebook</a></span></li><li><span><a href="#Station-Inventory" data-toc-modified-id="Station-Inventory-1.2"><span class="toc-item-num">1.2&nbsp;&nbsp;</span>Station Inventory</a></span></li><li><span><a href="#Info-for-Selected-Station" data-toc-modified-id="Info-for-Selected-Station-1.3"><span class="toc-item-num">1.3&nbsp;&nbsp;</span>Info for Selected Station</a></span><ul class="toc-item"><li><span><a href="#Download-Data" data-toc-modified-id="Download-Data-1.3.1"><span class="toc-item-num">1.3.1&nbsp;&nbsp;</span>Download Data</a></span></li></ul></li></ul></li></ul></div>
 
 +++ {"lines_to_next_cell": 0}
 
@@ -29,6 +24,8 @@ can skip this and download directly from this dropbox link:
 unzip this to create the folder data in the same pandas folder as this notebook.
 
 ```{code-cell} ipython3
+:trusted: true
+
 from pathlib import Path
 
 import pandas as pd
@@ -43,6 +40,7 @@ it can't find them
 
 ```{code-cell} ipython3
 :scrolled: true
+:trusted: true
 
 import context
 ```
@@ -60,6 +58,7 @@ import context
 
 ```{code-cell} ipython3
 :lines_to_next_cell: 2
+:trusted: true
 
 #
 # note that whitespace (blanks, tabs, newlines) in a tuple are discarded
@@ -72,6 +71,8 @@ f = (
 ```
 
 ```{code-cell} ipython3
+:trusted: true
+
 inventory_file = context.data_dir / "Station Inventory EN.csv"
 inventory = pd.read_csv(inventory_file, skiprows=3)
 
@@ -94,6 +95,8 @@ To download data for Vancouver Airport station (airport code YVR), we need the I
 Note that it has changed at some point from 889 to 51442
 
 ```{code-cell} ipython3
+:trusted: true
+
 station = "YVR"
 
 # Extract the inventory row(s) corresponding to this station
@@ -106,6 +109,8 @@ station_info
 First, define a function to download the CSV data using the Environment Canada API:
 
 ```{code-cell} ipython3
+:trusted: true
+
 def download_daily_raw(env_canada_id, year, savefile="test.csv", verbose=True):
     """Download CSV file of daily data for selected station and year"""
 
@@ -136,6 +141,8 @@ def download_daily_raw(env_canada_id, year, savefile="test.csv", verbose=True):
 *Note: The code below uses [f-strings](https://realpython.com/python-f-strings/) to substitute variable values into a string*
 
 ```{code-cell} ipython3
+:trusted: true
+
 # Early data (1937 to mid 2013)
 stn_id_early = 889  # station id for YVR airport
 years_early = range(1937, 2014)
@@ -146,9 +153,11 @@ for year in years_early:
 ```
 
 ```{code-cell} ipython3
+:trusted: true
+
 # Recent data (mid 2013 to 2019)
 stn_id_recent = 51442
-years_recent = range(2013, 2020)
+years_recent = range(2013, 2021)
 
 for year in years_recent:
     savefile = (context.raw_dir / 

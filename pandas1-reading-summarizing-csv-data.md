@@ -8,54 +8,12 @@ jupytext:
     format_version: 0.13
     jupytext_version: 1.11.5
 kernelspec:
-  display_name: Python 3
+  display_name: Python 3 (ipykernel)
   language: python
   name: python3
-language_info:
-  codemirror_mode:
-    name: ipython
-    version: 3
-  file_extension: .py
-  mimetype: text/x-python
-  name: python
-  nbconvert_exporter: python
-  pygments_lexer: ipython3
-  version: 3.7.3
-latex_envs:
-  LaTeX_envs_menu_present: true
-  autoclose: false
-  autocomplete: true
-  bibliofile: biblio.bib
-  cite_by: apalike
-  current_citInitial: 1
-  eqLabelWithNumbers: true
-  eqNumInitial: 1
-  hotkeys:
-    equation: meta-9
-  labels_anchors: false
-  latex_user_defs: false
-  report_style_numbering: false
-  user_envs_cfg: false
 nbsphinx:
   execute: never
-toc:
-  base_numbering: 1
-  nav_menu: {}
-  number_sections: true
-  sideBar: true
-  skip_h1_title: true
-  title_cell: Table of Contents
-  title_sidebar: Contents
-  toc_cell: true
-  toc_position: {}
-  toc_section_display: true
-  toc_window_display: true
 ---
-
-+++ {"lines_to_next_cell": 0, "toc": true}
-
-<h1>Table of Contents<span class="tocSkip"></span></h1>
-<div class="toc"><ul class="toc-item"><li><span><a href="#Learning-objectives" data-toc-modified-id="Learning-objectives-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Learning objectives</a></span></li><li><span><a href="#Folder-setup" data-toc-modified-id="Folder-setup-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Folder setup</a></span><ul class="toc-item"><li><span><a href="#Subfolder-creation" data-toc-modified-id="Subfolder-creation-2.1"><span class="toc-item-num">2.1&nbsp;&nbsp;</span>Subfolder creation</a></span></li></ul></li><li><span><a href="#Pandas-dataframes-vs.-numpy-arrays" data-toc-modified-id="Pandas-dataframes-vs.-numpy-arrays-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>Pandas dataframes vs. numpy arrays</a></span></li><li><span><a href="#Intro-to-Pandas" data-toc-modified-id="Intro-to-Pandas-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>Intro to Pandas</a></span></li><li><span><a href="#Why-Pandas?" data-toc-modified-id="Why-Pandas?-5"><span class="toc-item-num">5&nbsp;&nbsp;</span>Why Pandas?</a></span></li><li><span><a href="#Reading-a-CSV-file" data-toc-modified-id="Reading-a-CSV-file-6"><span class="toc-item-num">6&nbsp;&nbsp;</span>Reading a CSV file</a></span><ul class="toc-item"><li><span><a href="#The-pathlib-module" data-toc-modified-id="The-pathlib-module-6.1"><span class="toc-item-num">6.1&nbsp;&nbsp;</span>The pathlib module</a></span></li></ul></li><li><span><a href="#Data-at-a-Glance" data-toc-modified-id="Data-at-a-Glance-7"><span class="toc-item-num">7&nbsp;&nbsp;</span>Data at a Glance</a></span><ul class="toc-item"><li><span><a href="#Number-of-rows-and-columns:" data-toc-modified-id="Number-of-rows-and-columns:-7.1"><span class="toc-item-num">7.1&nbsp;&nbsp;</span>Number of rows and columns:</a></span></li><li><span><a href="#Simple-Summary-Statistics" data-toc-modified-id="Simple-Summary-Statistics-7.2"><span class="toc-item-num">7.2&nbsp;&nbsp;</span>Simple Summary Statistics</a></span></li></ul></li><li><span><a href="#Exercise" data-toc-modified-id="Exercise-8"><span class="toc-item-num">8&nbsp;&nbsp;</span>Exercise</a></span><ul class="toc-item"><li><span><a href="#Data-Overview" data-toc-modified-id="Data-Overview-8.1"><span class="toc-item-num">8.1&nbsp;&nbsp;</span>Data Overview</a></span></li><li><span><a href="#Bonus-exercises" data-toc-modified-id="Bonus-exercises-8.2"><span class="toc-item-num">8.2&nbsp;&nbsp;</span>Bonus exercises</a></span></li></ul></li></ul></div>
 
 +++ {"lines_to_next_cell": 0}
 
@@ -64,11 +22,16 @@ toc:
 Credit: the notebooks in this folder are lightly modified versions of work by Jennifer Walker presented
 at the EOAS python workshop in October, 2018: https://github.com/jenfly/eoas-python
 
-
 ```{code-cell} ipython3
-from pathlib import Path
+:trusted: true
 
+from pathlib import Path
 import pandas
+
+new_dirs = ['data/raw','data/processed']
+for the_dir in new_dirs:
+    curr_dir = Path() / the_dir
+    curr_dir.mkdir(parents=True,exist_ok=True)
 ```
 
 +++ {"lines_to_next_cell": 0}
@@ -101,6 +64,7 @@ We set the "context" for this notebook by importing:
 
 ```{code-cell} ipython3
 :lines_to_next_cell: 0
+:trusted: true
 
 import context
 ```
@@ -113,6 +77,7 @@ We create those folders in the cell below
 ```{code-cell} ipython3
 :lines_to_next_cell: 0
 :scrolled: true
+:trusted: true
 
 processed_dir =  Path("data/processed")
 raw_dir = Path("data/raw")
@@ -180,10 +145,14 @@ hide this complexity by understanding whether we are working on windows, linux o
 just doing the right thing.
 
 ```{code-cell} ipython3
+:trusted: true
+
 weather_file = Path("data/weather_YVR.csv")  #subfolder
 ```
 
 ```{code-cell} ipython3
+:trusted: true
+
 weather = pandas.read_csv(weather_file)
 #dir(weather)
 ```
@@ -195,6 +164,8 @@ weather = pandas.read_csv(weather_file)
 - Auto-complete even works for file paths inside a string!
 
 ```{code-cell} ipython3
+:trusted: true
+
 weather.head()
 ```
 
@@ -206,6 +177,8 @@ weather.head()
 What type of object is `weather`?
 
 ```{code-cell} ipython3
+:trusted: true
+
 type(weather)
 ```
 
@@ -218,13 +191,17 @@ type(weather)
   - In this case, the index is simply a range of integers corresponding with the row numbers
 
 ```{code-cell} ipython3
+:trusted: true
+
 weather
 ```
 
 For large DataFrames, it's often useful to display just the first few or last few rows:
 
 ```{code-cell} ipython3
-weather.
+:trusted: true
+
+weather.head()
 ```
 
 +++ {"slideshow": {"slide_type": "fragment"}}
@@ -241,14 +218,20 @@ The `head` method returns a new DataFrame consisting of the first `n` rows (defa
 First two rows:
 
 ```{code-cell} ipython3
-weather.iloc[100,2]
+:trusted: true
+
+weather.head(2)
 ```
 
 ```{code-cell} ipython3
+:trusted: true
+
 # Last four rows:
 ```
 
 ```{code-cell} ipython3
+:trusted: true
+
 weather.tail(4)
 ```
 
@@ -269,10 +252,14 @@ weather.tail(4)
 ### Number of rows and columns:
 
 ```{code-cell} ipython3
+:trusted: true
+
 weather.shape
 ```
 
 ```{code-cell} ipython3
+:trusted: true
+
 # - The DataFrame `weather` has 29190 rows and 10 columns
 # - The index does not count as a column
 # - Notice there are no parentheses at the end of `weather.shape`
@@ -280,10 +267,14 @@ weather.shape
 ```
 
 ```{code-cell} ipython3
+:trusted: true
+
 type(weather.shape)
 ```
 
 ```{code-cell} ipython3
+:trusted: true
+
 # The data in the `shape` attribute is stored as a **tuple**, which is similar to a list.
 #
 # - Items in a tuple are enclosed in `()` instead of `[]`
@@ -296,6 +287,8 @@ type(weather.shape)
 - We can find out the names and data types of each column from the `dtypes` attribute:
 
 ```{code-cell} ipython3
+:trusted: true
+
 weather.dtypes
 ```
 
@@ -314,6 +307,7 @@ If we just want a list of the column names, we can use the `columns` attribute:
 scrolled: true
 slideshow:
   slide_type: '-'
+trusted: true
 ---
 weather.columns
 ```
@@ -323,6 +317,8 @@ weather.columns
 The `describe` method computes simple summary statistics and returns them as a DataFrame:
 
 ```{code-cell} ipython3
+:trusted: true
+
 weather.describe()
 ```
 
@@ -333,6 +329,8 @@ The `describe` method is a way to quickly summarize the averages, extremes, and 
 You can look at each statistic individually with methods such as `mean`, `median`, `min`, `max`,`std`, and `count`
 
 ```{code-cell} ipython3
+:trusted: true
+
 weather.mean()
 ```
 
